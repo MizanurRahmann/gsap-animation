@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { ReactComponent as UpArrow } from "../assets/up-arrow-circle.svg";
 import { openMenu, closeMenu } from "../animations/menuAnimations";
 import gsap from 'gsap';
@@ -8,10 +7,14 @@ import gsap from 'gsap';
 
 const tl = gsap.timeline();
 
-const Header = ({dimension}) => {
+const Header = ({ history, dimension }) => {
   const [menuState, setMenuState] = useState({ menuOpened: false });
 
   useEffect(() => {
+    history.listen(() => {
+      setMenuState({ menuOpened: false })
+    });
+      
     if (menuState.menuOpened === true) {
       // Run open menu animation
       openMenu(dimension.width);
@@ -21,6 +24,7 @@ const Header = ({dimension}) => {
       closeMenu();
     }
   }, [menuState.menuOpened]);
+
   return (
     <div className='header'>
       <div className='container'>
@@ -48,4 +52,4 @@ const Header = ({dimension}) => {
     </div>
   );
 };
-export default Header;
+export default withRouter(Header);
