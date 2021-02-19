@@ -40,7 +40,7 @@ function App() {
 
     // Update resize of window to make perfect responsive
     const debouncedHandleResize = debounce(function handleResize() {
-      setDimensions({
+      setDimension({
         height: window.innerHeight,
         width: window.innerWidth
       });
@@ -54,7 +54,7 @@ function App() {
 
   return (
     <>
-       <Header />
+       <Header dimension={dimension} />
        <div className="App">
           <Route exact path='/' component={Home} />
           <Route exact path='/about' component={About} />
